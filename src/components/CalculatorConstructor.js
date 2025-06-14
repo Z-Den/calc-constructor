@@ -5,7 +5,7 @@ import { Numpad } from './Numpad';
 import { useCalculatorStore } from '../store/store';
 
 export const CalculatorConstructor = ({ mode }) => {
-    const { components, removeComponent } = useCalculatorStore();
+    const { components, availableComponents, removeComponent } = useCalculatorStore();
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: 'component',
@@ -16,7 +16,7 @@ export const CalculatorConstructor = ({ mode }) => {
     }));
 
     const addComponentToConstructor = (type) => {
-        if (mode === 'constructor') {
+        if (mode === 'constructor' && availableComponents.includes(type)) {
             useCalculatorStore.getState().addComponent(type);
         }
     };

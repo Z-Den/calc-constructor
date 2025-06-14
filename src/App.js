@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
     const [mode, setMode] = useState('constructor');
-    const { displayValue, resetCalculator } = useCalculatorStore();
+    const { displayValue, availableComponents, resetCalculator } = useCalculatorStore();
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -21,9 +21,15 @@ function App() {
                     {mode === 'constructor' && (
                         <div className="components-palette">
                             <h3>Доступные компоненты</h3>
-                            <DraggableComponent type="display" />
-                            <DraggableComponent type="operations" />
-                            <DraggableComponent type="numpad" />
+                            {availableComponents.includes('display') && (
+                                <DraggableComponent type="display" />
+                            )}
+                            {availableComponents.includes('operations') && (
+                                <DraggableComponent type="operations" />
+                            )}
+                            {availableComponents.includes('numpad') && (
+                                <DraggableComponent type="numpad" />
+                            )}
                         </div>
                     )}
 

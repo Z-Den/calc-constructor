@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 export const useCalculatorStore = create((set) => ({
+    availableComponents: ['display', 'operations', 'numpad'],
     components: [],
     displayValue: '',
     firstOperand: null,
@@ -9,13 +10,18 @@ export const useCalculatorStore = create((set) => ({
 
     addComponent: (component) =>
         set((state) => ({
-            components: [...state.components, component]
+            components: [...state.components, component],
+            availableComponents: state.availableComponents.filter(c => c !== component)
         })),
 
     removeComponent: (index) =>
-        set((state) => ({
-            components: state.components.filter((_, i) => i !== index)
-        })),
+        set((state) => {
+            const removedComponent = state.components[index];
+            return {
+                components: state.components.filter((_, i) => i !== index),
+                availableComponents: [...state.availableComponents, removedComponent]
+            };
+        }),
 
     inputDigit: (digit) =>
         set((state) => {
