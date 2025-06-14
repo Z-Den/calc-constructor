@@ -1,38 +1,182 @@
-.App {
-  text-align: center;
+/* Основные стили приложения */
+.app {
+  padding: 32px;
+  font-family: 'Inter', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.calculator-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 56px;
+  margin-top: 32px;
+}
+
+/* Стили палитры компонентов */
+.components-palette {
+  border: 1px dashed #C4C4C4;
+  padding: 28px;
+  border-radius: 6px;
+  width: 240px;
+  background: #FFFFFF;
+}
+
+.components-palette h3 {
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #5D5FEF;
+}
+
+/* Стили области конструктора */
+.constructor-area {
+  border: 1px dashed #C4C4C4;
+  padding: 22px;
+  border-radius: 6px;
+  min-height: 448px;
+  width: 240px;
+  background: #FFFFFF;
+}
+
+.constructor-area.highlight {
+  border-color: #5D5FEF;
+  background: #F0F9FF;
+}
+
+.constructor-area p {
+  color: #6B7280;
+  text-align: center;
+  margin-top: 180px;
+}
+
+/* Стили дисплея */
+.calculator-display {
+  background: #F3F4F6;
+  padding: 4px 8px;
+  text-align: right;
+  font-size: 36px;
+  border: 1px solid #E2E3E5;
+  border-radius: 6px;
+  height: 52px;
+  margin-bottom: 12px;
+  line-height: 52px;
+  overflow: hidden;
+}
+
+/* Стили кнопок */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.numpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.button {
+  padding: 12px;
+  border: 1px solid #E2E3E5;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: #F3F4F6;
+}
+
+.button.operator {
+  background: #5D5FEF;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.button.operator:hover {
+  background: #4b4dbf;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button.equals {
+  grid-column: span 4;
+  margin-top: 12px;
+}
+
+/* Стили переключателя режимов */
+.mode-switcher {
+  display: flex;
+  background: #F3F4F6;
+  border-radius: 6px;
+  padding: 2px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.mode-button {
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mode-button.active {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Стили draggable компонентов */
+.draggable-component {
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #E2E3E5;
+  border-radius: 6px;
+  background: white;
+  cursor: move;
+  transition: opacity 0.2s;
+}
+
+.draggable-component.dragging {
+  opacity: 0.5;
+}
+
+.component-preview {
+  pointer-events: none;
+}
+
+.display-preview {
+  background: #F3F4F6;
+  padding: 4px 8px;
+  text-align: right;
+  font-size: 24px;
+  border: 1px solid #E2E3E5;
+  border-radius: 6px;
+  height: 36px;
+  margin-bottom: 8px;
+}
+
+.operations-preview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.numpad-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.draggable-component p {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #6B7280;
+  text-align: center;
 }

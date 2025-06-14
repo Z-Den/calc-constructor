@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { CalculatorConstructor } from './components/CalculatorConstructor';
+import { ModeSwitcher } from './components/ModeSwitcher';
+import { DraggableComponent } from './components/DraggableComponent';
+import { useCalculatorStore } from './store/store';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [mode, setMode] = useState('constructor');
+    const { displayValue, resetCalculator } = useCalculatorStore();
+
+    return (
+        <DndProvider backend={HTML5Backend}>
+            <div className="app">
+                <ModeSwitcher mode={mode} setMode={setMode} />
+
+                <div className="calculator-container">
+                    {mode === 'constructor' && (
+                        <div className="components-palette">
+                            <h3>Доступные компоненты</h3>
+                            <DraggableComponent type="display" />
+                            <DraggableComponent type="operations" />
+                            <DraggableComponent type="numpad" />
+                        </div>
+                    )}
+
+                    <CalculatorConstructor mode={mode} />
+
+                    {mode === 'runtime' && displayValue && (
+                        <button onClick={resetCalculator} className="reset-btn">
+                            Сброс
+                        </button>
+                    )}
+                </div>
+            </div>
+        </DndProvider>
+    );
 }
 
 export default App;
