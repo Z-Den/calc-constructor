@@ -4,7 +4,7 @@ export const Display = () => {
     const { displayValue } = useCalculatorStore();
 
     return (
-        <div className="display">
+        <div className="display calculator-display">
             {displayValue || '0'}
         </div>
     );

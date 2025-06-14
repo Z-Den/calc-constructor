@@ -58,7 +58,7 @@
   border: 1px solid #E2E3E5;
   border-radius: 6px;
   height: 52px;
-  margin-bottom: 12px;
+  margin: 12px 0;
   line-height: 52px;
   overflow: hidden;
 }
@@ -77,7 +77,7 @@
   gap: 8px;
 }
 
-.button {
+.numpad-button {
   padding: 12px;
   border: 1px solid #E2E3E5;
   border-radius: 6px;
@@ -88,20 +88,35 @@
   transition: background 0.2s;
 }
 
-.button:hover {
+.numpad-button:hover {
   background: #F3F4F6;
 }
 
-.button.operator {
-  background: #5D5FEF;
-  color: white;
+.numpad-button.zero {
+  grid-column: span 2;
 }
 
-.button.operator:hover {
-  background: #4b4dbf;
+.operations button{
+  padding: 12px;
+  border: 1px solid #E2E3E5;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
 }
 
-.button.equals {
+.operations button:hover {
+  background: #F3F4F6;
+}
+
+.operations button.equals {
+  grid-column: span 4;
+  margin-top: 12px;
+}
+
+.operations button.reset {
   grid-column: span 4;
   margin-top: 12px;
 }
@@ -114,6 +129,7 @@
   padding: 2px;
   margin-bottom: 20px;
   width: fit-content;
+  
 }
 
 .mode-button {

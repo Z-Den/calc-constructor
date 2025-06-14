@@ -6,6 +6,8 @@ import { ModeSwitcher } from './components/ModeSwitcher';
 import { DraggableComponent } from './components/DraggableComponent';
 import { useCalculatorStore } from './store/store';
 
+import './App.css';
+
 function App() {
     const [mode, setMode] = useState('constructor');
     const { displayValue, resetCalculator } = useCalculatorStore();
