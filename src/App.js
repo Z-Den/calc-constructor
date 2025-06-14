@@ -16,7 +16,9 @@ function App() {
         <DndProvider backend={HTML5Backend}>
             <div className="app">
                 <ModeSwitcher mode={mode} setMode={setMode} />
-                <p className="info">Компонент можно удалить двойным кликом</p>
+                {mode === 'constructor' && (
+                    <p className="info">Компонент можно удалить двойным кликом</p>
+                )}
                 <div className="calculator-container">
                     {mode === 'constructor' && (
                         <div className="components-palette">

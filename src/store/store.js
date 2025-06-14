@@ -38,21 +38,6 @@ export const useCalculatorStore = create((set) => ({
             };
         }),
 
-    inputDecimal: () =>
-        set((state) => {
-            if (state.waitingForSecondOperand) {
-                return {
-                    displayValue: '0.',
-                    waitingForSecondOperand: false
-                };
-            }
-            return {
-                displayValue: state.displayValue.includes('.')
-                    ? state.displayValue
-                    : state.displayValue + '.'
-            };
-        }),
-
     handleOperator: (nextOperator) =>
         set((state) => {
             const inputValue = parseFloat(state.displayValue);
