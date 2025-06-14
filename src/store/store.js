@@ -7,6 +7,7 @@ export const useCalculatorStore = create((set) => ({
     firstOperand: null,
     operator: null,
     waitingForSecondOperand: false,
+    fullExpression: '',
 
     addComponent: (component) =>
         set((state) => ({
@@ -28,25 +29,45 @@ export const useCalculatorStore = create((set) => ({
             if (state.waitingForSecondOperand) {
                 return {
                     displayValue: String(digit),
+                    fullExpression: state.fullExpression + digit,
                     waitingForSecondOperand: false
                 };
             }
             return {
                 displayValue: state.displayValue === '0'
                     ? String(digit)
-                    : state.displayValue + digit
+                    : state.displayValue + digit,
+                fullExpression: state.fullExpression === '0'
+                    ? String(digit)
+                    : state.fullExpression + digit
             };
         }),
 
     handleOperator: (nextOperator) =>
         set((state) => {
             const inputValue = parseFloat(state.displayValue);
+            let newFullExpression = state.fullExpression;
+
+            // Если выражение пустое, начинаем с нуля
+            if (state.fullExpression === '' && state.displayValue === '') {
+                newFullExpression = '0' + nextOperator;
+            }
+            // Если последний символ - оператор, заменяем его
+            else if (['+', '-', 'x', '/'].includes(state.fullExpression.slice(-1))) {
+                newFullExpression = state.fullExpression.slice(0, -1) + nextOperator;
+            }
+            // Иначе добавляем оператор
+            else {
+                newFullExpression = state.fullExpression + nextOperator;
+            }
 
             if (state.firstOperand === null) {
                 return {
                     firstOperand: inputValue,
                     waitingForSecondOperand: true,
-                    operator: nextOperator
+                    operator: nextOperator,
+                    fullExpression: newFullExpression,
+                    displayValue: newFullExpression
                 };
             }
 
@@ -58,16 +79,19 @@ export const useCalculatorStore = create((set) => ({
                 );
 
                 return {
-                    displayValue: String(result),
+                    displayValue: newFullExpression,
                     firstOperand: result,
                     waitingForSecondOperand: true,
-                    operator: nextOperator
+                    operator: nextOperator,
+                    fullExpression: newFullExpression
                 };
             }
 
             return {
                 waitingForSecondOperand: true,
-                operator: nextOperator
+                operator: nextOperator,
+                fullExpression: newFullExpression,
+                displayValue: newFullExpression
             };
         }),
 
@@ -76,8 +100,15 @@ export const useCalculatorStore = create((set) => ({
             if (state.firstOperand === null || !state.operator) {
                 return {};
             }
+            let inputValue;
+            if(state.displayValue[state.displayValue.length - 1] === '-' ||
+                state.displayValue[state.displayValue.length - 1] === '+'){
+                inputValue = 0;
+            }
+            else{
+                inputValue = parseFloat(state.displayValue);
 
-            const inputValue = parseFloat(state.displayValue);
+            }
             const result = performCalculation(
                 state.firstOperand,
                 inputValue,
@@ -85,7 +116,8 @@ export const useCalculatorStore = create((set) => ({
             );
 
             return {
-                displayValue: String(result),
+                fullExpression: String(result),
+                displayValue: result,
                 firstOperand: null,
                 operator: null,
                 waitingForSecondOperand: false
@@ -95,6 +127,7 @@ export const useCalculatorStore = create((set) => ({
     resetCalculator: () =>
         set({
             displayValue: '',
+            fullExpression: '',
             firstOperand: null,
             operator: null,
             waitingForSecondOperand: false
