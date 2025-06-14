@@ -6,6 +6,13 @@
   margin: 0 auto;
 }
 
+.info{
+  margin-top: 32px;
+  text-align: end;
+  color: #6B7280;
+  translate: -140px;
+}
+
 .calculator-container {
   display: flex;
   gap: 56px;

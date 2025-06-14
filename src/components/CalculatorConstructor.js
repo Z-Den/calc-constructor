@@ -45,9 +45,13 @@ export const CalculatorConstructor = ({ mode }) => {
             ref={drop}
             className={`constructor-area ${isOver ? 'highlight' : ''}`}
         >
-            {components.length === 0 ? (
+            {components.length === 0 && mode === 'constructor' && (
                 <p>Перетащите сюда любой элемент из левой панели</p>
-            ) : (
+            )}
+            {components.length === 0 && mode === 'runtime' && (
+                <p>Вы пока не добавили ни одного элемента</p>
+            )}
+            {components.length > 0 && (
                 components.map((component, index) => (
                     <div
                         key={`${component}-${index}`}

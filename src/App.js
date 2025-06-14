@@ -10,13 +10,13 @@ import './App.css';
 
 function App() {
     const [mode, setMode] = useState('constructor');
-    const { displayValue, availableComponents, resetCalculator } = useCalculatorStore();
+    const {availableComponents} = useCalculatorStore();
 
     return (
         <DndProvider backend={HTML5Backend}>
             <div className="app">
                 <ModeSwitcher mode={mode} setMode={setMode} />
-
+                <p className="info">Компонент можно удалить двойным кликом</p>
                 <div className="calculator-container">
                     {mode === 'constructor' && (
                         <div className="components-palette">
@@ -34,12 +34,6 @@ function App() {
                     )}
 
                     <CalculatorConstructor mode={mode} />
-
-                    {mode === 'runtime' && displayValue && (
-                        <button onClick={resetCalculator} className="reset-btn">
-                            Сброс
-                        </button>
-                    )}
                 </div>
             </div>
         </DndProvider>

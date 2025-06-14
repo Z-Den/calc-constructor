@@ -1,4 +1,7 @@
 import { useDrag } from 'react-dnd';
+import {Display} from "./Display";
+import {Operations} from "./Operations";
+import {Numpad} from "./Numpad";
 
 export const DraggableComponent = ({ type }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -12,24 +15,11 @@ export const DraggableComponent = ({ type }) => {
     const getComponentPreview = () => {
         switch (type) {
             case 'display':
-                return <div className="component-preview display-preview">0</div>;
+                return <Display />;
             case 'operations':
-                return (
-                    <div className="component-preview operations-preview">
-                        <button>+</button>
-                        <button>-</button>
-                        <button>=</button>
-                        <button>C</button>
-                    </div>
-                );
+                return <Operations />;
             case 'numpad':
-                return (
-                    <div className="component-preview numpad-preview">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(num => (
-                            <button key={num}>{num}</button>
-                        ))}
-                    </div>
-                );
+                return <Numpad />;
             default:
                 return null;
         }
